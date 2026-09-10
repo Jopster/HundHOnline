@@ -8,10 +8,10 @@
             <xpath expr="//form" position="inside">
                 <app string="HHOdoo" name="hh_odoo" groups="base.group_system">
                     <block title="Globale Eigenschaften">
-                        <setting string="Dokumentenpfad" help="Basisverzeichnis für H&H-Dokumente.">
+                        <setting string="Dokumentenpfad" help="Basisverzeichnis für H&amp;H-Dokumente.">
                             <field name="hh_document_path" placeholder="z. B. /srv/hh-documents"/>
                         </setting>
-                        <setting string="Wartungsmodus" help="Kennzeichnet die H&H-Funktionen als in Wartung.">
+                        <setting string="Wartungsmodus" help="Kennzeichnet die H&amp;H-Funktionen als in Wartung.">
                             <field name="hh_maintenance_mode"/>
                         </setting>
                     </block>

@@ -11,7 +11,7 @@
                         <field name="hh_event_count" widget="statinfo" string="Termine"/>
                     </button>
                 </div>
-                <group string="H&H Projektinformationen">
+                <group string="H&amp;H Projektinformationen">
                     <field name="hh_reference"/>
                     <field name="hh_contact_id"/>
                     <field name="hh_status"/>
