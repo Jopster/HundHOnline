@@ -73,7 +73,7 @@
                 </section>
             </section>
 
-            <footer class="o_hh_status_bar"><span>Anmeldung: <t t-esc="env.services.user.name"/></span><span>HHOdoo</span><span class="o_hh_status_led">&#9654;</span><span><t t-esc="state.statusMessage"/></span></footer>
+            <footer class="o_hh_status_bar"><span>Anmeldung aktiv</span><span>HHOdoo</span><span class="o_hh_status_led">&#9654;</span><span><t t-esc="state.statusMessage"/></span></footer>
         </main>
     </t>
 </templates>
