@@ -46,7 +46,7 @@
                         <div t-if="state.activeToolboxTab === 'utilities'" class="o_hh_toolbox_panel">
                             <div class="o_hh_caption">H&amp;H Dienstprogramme</div>
                             <div class="o_hh_utilities">
-                                <aside><div class="o_hh_gears">&#9881; &#9881;</div><strong>HHOdoo-Version:</strong><span>18.0.1.0.0</span></aside>
+                                <aside><div class="o_hh_gears">&#9881; &#9881;</div><strong>HHOnline-Version:</strong><span>18.0.1.0.0</span></aside>
                                 <div class="o_hh_utility_actions">
                                     <button type="button" t-on-click="() => this.selectTool('Lizenz / Freischaltung')">Lizenz / Freischaltung</button>
                                     <button type="button" t-on-click="() => this.selectTool('CSV - Schnittstelle')">CSV - Schnittstelle</button>
@@ -65,7 +65,7 @@
                 </section>
             </section>
 
-            <footer class="o_hh_status_bar"><span>Anmeldung aktiv</span><span>HHOdoo</span><span class="o_hh_status_led">&#9654;</span><span><t t-esc="state.statusMessage"/></span></footer>
+            <footer class="o_hh_status_bar"><span>Anmeldung aktiv</span><span>HHOnline</span><span class="o_hh_status_led">&#9654;</span><span><t t-esc="state.statusMessage"/></span></footer>
         </main>
     </t>
 </templates>

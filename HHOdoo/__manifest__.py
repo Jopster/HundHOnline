@@ -1,6 +1,6 @@
 {
-    "name": "HHOdoo",
-    "summary": "H&H project management extensions",
+    "name": "HHOnline",
+    "summary": "H&H Online project management extensions",
     "version": "18.0.1.0.0",
     "category": "Services/Project",
     "author": "H&H Software",

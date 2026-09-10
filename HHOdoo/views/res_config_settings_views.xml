@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="base.res_config_settings_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//form" position="inside">
-                <app string="HHOdoo" name="hh_odoo" groups="base.group_system">
+                <app string="HHOnline" name="hh_odoo" groups="base.group_system">
                     <block title="Globale Eigenschaften">
                         <setting string="Dokumentenpfad" help="Basisverzeichnis für H&amp;H-Dokumente.">
                             <field name="hh_document_path" placeholder="z. B. /srv/hh-documents"/>
