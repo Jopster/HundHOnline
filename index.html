@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>H6H Online</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="application-shell" aria-label="H6H Online">
+    <header class="title-bar">
+      <div class="brand-mark">H</div>
+      <span>H6H Online</span>
+      <span class="copyright">Version 0.0.1 · Build 0001</span>
+      <div class="window-controls" aria-label="Fenstersteuerung">
+        <button type="button" aria-label="Minimieren">−</button>
+        <button type="button" aria-label="Maximieren">□</button>
+        <button type="button" aria-label="Schließen">×</button>
+      </div>
+    </header>
+
+    <nav class="menu-bar" aria-label="Hauptmenü">
+      <button type="button">Hotkeys</button><button type="button">Terminmanager</button><button type="button">Fenster</button><button type="button">System</button><button type="button">Hilfe</button>
+    </nav>
+
+    <section class="module-ribbon" aria-label="Module">
+      <div class="ribbon-logo"><span>H</span></div>
+      <div class="module-tabs" role="tablist">
+        <button type="button" role="tab">Wareneingang</button>
+        <button type="button" role="tab">Stammdaten</button>
+        <button type="button" class="active" role="tab" aria-selected="true">Projektmanager</button>
+        <button type="button" role="tab">Zeiten</button>
+        <button type="button" role="tab">Finanzen</button>
+        <button type="button" role="tab">Auswertungen</button>
+        <button type="button" role="tab">Benutzer</button>
+        <button type="button" role="tab">Kontakte</button>
+        <button type="button" role="tab">Conspectus</button>
+      </div>
+    </section>
+
+    <nav class="submodule-bar" aria-label="Modulbefehle">
+      <div class="ribbon-panel" data-module="Projektmanager">
+        <div class="ribbon-group"><button type="button" class="ribbon-command launch-button"><span class="project-icon"><i></i><b></b><em></em></span>Projekte</button><span>Projektmanager</span></div>
+      </div>
+      <div class="ribbon-panel" data-module="Stammdaten" hidden>
+        <div class="ribbon-group"><button type="button" class="ribbon-command"><b class="cmd-icon">◇</b>Artikel/<br>Texte</button><button type="button" class="ribbon-command"><b class="cmd-icon">☏</b>Kontakt-<br>manager</button><span>Stammdaten</span></div>
+        <div class="ribbon-group"><button type="button" class="ribbon-command"><b class="cmd-icon">▱</b>Reports</button><button type="button" class="ribbon-command"><b class="cmd-icon">▱</b>Kalkulationen</button><span>Explorer</span></div>
+        <div class="ribbon-group"><button type="button" class="ribbon-command"><b class="cmd-icon">⌑</b>INI.XML</button><button type="button" class="ribbon-command"><b class="cmd-icon">imos</b>CAD-<br>Import</button><button type="button" class="ribbon-command"><b class="cmd-icon">◷</b>Hauptkosten-<br>stellen</button><button type="button" class="ribbon-command"><b class="cmd-icon">▥</b>Papierkorb</button><span>Sonstiges</span></div>
+      </div>
+      <div class="ribbon-panel" data-module="Wareneingang" hidden>
+        <div class="ribbon-group"><button type="button" class="ribbon-command"><b class="cmd-icon">↧</b>Rechnungen<br>(EGR)</button><button type="button" class="ribbon-command"><b class="cmd-icon">▤</b>Bestell-<br>abwicklung</button><button type="button" class="ribbon-command"><b class="cmd-icon">⌂</b>Lager</button><span>Wareneingang</span></div>
+      </div>
+      <div class="ribbon-panel" data-module="Zeiten" hidden>
+        <div class="ribbon-group"><button type="button" class="ribbon-command"><b class="cmd-icon">◷</b>Arbeits-<br>scheine</button><button type="button" class="ribbon-command"><b class="cmd-icon">▤</b>Stempeluhr</button><button type="button" class="ribbon-command"><b class="cmd-icon">◷</b>Benutzer-<br>aktivitäten</button><span>Zeiten</span></div>
+      </div>
+      <div class="ribbon-panel" data-module="Finanzen" hidden>
+        <div class="ribbon-group"><button type="button" class="ribbon-command"><b class="cmd-icon">▣</b>Rechnungs-<br>liste</button><button type="button" class="ribbon-command"><b class="cmd-icon">↔</b>Zahlungs-<br>eingänge</button><button type="button" class="ribbon-command"><b class="cmd-icon">!?</b>Mahnungen</button><button type="button" class="ribbon-command"><b class="cmd-icon">$</b>Finanz-<br>vorschau</button><button type="button" class="ribbon-command"><b class="cmd-icon">▤</b>Konto-<br>umsätze</button><span>Finanzen</span></div>
+        <div class="ribbon-group"><button type="button" class="ribbon-command"><b class="cmd-icon">↪</b>Datev</button><button type="button" class="ribbon-command"><b class="cmd-icon">⇄</b>IGIS_R</button><span>Export</span></div>
+      </div>
+    </nav>
+
+    <section class="workspace">
+      <div class="technology-wallpaper" aria-hidden="true">
+        <div class="tech-grid"></div>
+        <div class="world-map">◌</div>
+        <div class="chart chart-one"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="chart chart-two"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="network"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="wall-brand"><strong>H&amp;H</strong><small>SOFTWARE<br>PROFESSIONAL</small></div>
+      </div>
+
+      <section class="toolbox-window" aria-labelledby="toolbox-title">
+        <header class="toolbox-titlebar">
+          <span class="small-mark">H</span><span id="toolbox-title">Toolbox</span>
+          <div class="toolbox-controls"><button type="button" aria-label="Minimieren">−</button><button type="button" aria-label="Maximieren">□</button><button type="button" class="close-toolbox" aria-label="Schließen">×</button></div>
+        </header>
+        <div class="toolbox-body">
+          <div class="tabs" role="tablist">
+            <button type="button" class="selected" role="tab" aria-selected="true" data-view="utilities">Dienstprogramme</button>
+            <button type="button" role="tab" aria-selected="false" data-view="settings">Einstellungen</button>
+          </div>
+          <div class="content-frame toolbox-panel" data-panel="utilities">
+            <div class="content-caption"><span></span>H&amp;H Dienstprogramme</div>
+            <div class="utility-area">
+              <aside class="version-panel">
+                <div class="gears"><b>⚙</b><i>⚙</i><em>⚙</em></div>
+                <strong>H6H-Version:</strong>
+                <span>0.0.1 Build 0001</span>
+              </aside>
+              <div class="utility-actions">
+                <button type="button"><span>🔑</span>Lizenz / Freischaltung</button>
+                <button type="button"><span>▧</span>CSV - Schnittstelle</button>
+                <button type="button"><span>▤</span>SQL-Wizard</button>
+                <button type="button"><span>▦</span>Wartung Datenbank</button>
+                <button type="button"><span>▣</span>Wartung Pfade</button>
+              </div>
+            </div>
+          </div>
+          <div class="content-frame toolbox-panel settings-panel" data-panel="settings" hidden>
+            <fieldset>
+              <legend>Globale Eigenschaften</legend>
+              <div class="settings-grid global-settings">
+                <button type="button">Systemeinstellungen</button><button type="button">Systemeinstellungen 2</button><button type="button">Initialisierungen</button>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Listen</legend>
+              <div class="settings-grid list-settings">
+                <button type="button">Anreden</button><button type="button">Barcode Profile</button><button type="button">Feiertage</button><button type="button">Lieferbedingungen</button><button type="button">Projekt Termintexte</button>
+                <button type="button">Anredentexte</button><button type="button">BizDoc - Typen</button><button type="button">FIBU - Sachkonten</button><button type="button">Zahlungsbemerkung</button><button type="button">Bez./Kommission</button>
+                <button type="button">Arbeitsarten</button><button type="button">Bizdocs gruppieren</button><button type="button">DATEV - Funktionspl.</button><button type="button">Personalstatus</button><button type="button">Projektvorhaben</button>
+                <button type="button">Hauptkostenstellen</button><button type="button">Bizdocinformation</button><button type="button">Formelsammlung</button><button type="button">Projekt-Ereignisse</button><button type="button">Zus. Projektordner</button>
+                <button type="button">Mengen-Einheiten</button><button type="button">Bizdoctitel</button><button type="button">Lager</button><button type="button">Position Anzeigeopt.</button><button type="button">Verkäufer</button>
+                <button type="button">Mehrwertsteuersätze</button><button type="button">Markennamen</button><button type="button">Lagerstellplatz</button><button type="button">Rechnungstitel</button>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Einzelne Werte</legend>
+              <div class="settings-grid individual-settings">
+                <button type="button">Nummernkreise</button><button type="button">Autom. Dokumentenerzeugung (PDF)</button><button type="button">Email Signatur</button>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <footer class="status-bar">
+      <span>Anmeldung: Gröger, Michael um 21:01 Uhr</span><span>Mittwoch, der 09. September 2026</span><span>H&amp;H Software GmbH</span><span>hh</span><span class="status-led">▶</span><span id="status-message">Dieses Produkt ist lizenziert.</span>
+    </footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
