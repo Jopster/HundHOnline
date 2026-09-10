@@ -17,25 +17,10 @@
     font: inherit;
 }
 
-.o_hh_menu_bar {
-    display: flex;
-    gap: 24px;
-    height: 26px;
-    align-items: center;
-    padding: 0 14px;
-    border-bottom: 1px solid #dc6432;
-    background: #f7f7f7;
-}
-
-.o_hh_menu_bar button,
 .o_hh_module_tabs button {
     border: 0;
     background: transparent;
     color: var(--hh-blue);
-}
-
-.o_hh_menu_bar button {
-    font-weight: 700;
 }
 
 .o_hh_ribbon {
@@ -225,7 +210,7 @@
 }
 
 .o_hh_toolbox {
-    position: relative;
+    position: absolute;
     z-index: 1;
     width: min(862px, calc(100% - 28px));
     height: 488px;
@@ -245,6 +230,8 @@
     background: linear-gradient(#d9edff, #a7c8e7);
     font-size: 13px;
     font-weight: 700;
+    cursor: grab;
+    user-select: none;
 }
 
 .o_hh_small_logo {
@@ -299,7 +286,6 @@
 
 @media (max-width: 900px) {
     .o_hh_dashboard { min-height: 550px; }
-    .o_hh_menu_bar { gap: 12px; }
     .o_hh_toolbox { width: calc(100% - 14px); }
     .o_hh_wall_brand { left: 45%; }
     .o_hh_chart_two { display: none; }

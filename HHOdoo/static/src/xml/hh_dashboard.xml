@@ -2,14 +2,6 @@
 <templates xml:space="preserve">
     <t t-name="HHOdoo.Dashboard">
         <main class="o_hh_dashboard">
-            <section class="o_hh_menu_bar">
-                <button type="button" t-on-click="() => this.selectTool('Hotkeys')">Hotkeys</button>
-                <button type="button" t-on-click="openEvents">Terminmanager</button>
-                <button type="button" t-on-click="() => this.selectTool('Fenster')">Fenster</button>
-                <button type="button" t-on-click="openSettings">System</button>
-                <button type="button" t-on-click="() => this.selectTool('Hilfe')">Hilfe</button>
-            </section>
-
             <section class="o_hh_ribbon">
                 <div class="o_hh_logo">H</div>
                 <div class="o_hh_module_tabs" role="tablist">
@@ -35,7 +27,7 @@
                 </div>
             </section>
 
-            <section class="o_hh_workspace">
+            <section class="o_hh_workspace" t-ref="workspace">
                 <div class="o_hh_wallpaper" aria-hidden="true">
                     <div class="o_hh_grid"/>
                     <div class="o_hh_chart o_hh_chart_one"/>
@@ -44,8 +36,8 @@
                     <div class="o_hh_wall_brand"><strong>H&amp;H</strong><small>SOFTWARE<br/>PROFESSIONAL</small></div>
                 </div>
 
-                <section t-if="state.toolboxVisible" class="o_hh_toolbox">
-                    <header class="o_hh_toolbox_title"><span class="o_hh_small_logo">H</span><span>Toolbox</span><button type="button" t-on-click="closeToolbox" title="Schliessen">x</button></header>
+                <section t-if="state.toolboxVisible" class="o_hh_toolbox" t-ref="toolbox" t-att-style="'left: ' + state.toolboxLeft + 'px; top: ' + state.toolboxTop + 'px;'">
+                    <header class="o_hh_toolbox_title" t-on-pointerdown="startDragging"><span class="o_hh_small_logo">H</span><span>Toolbox</span><button type="button" t-on-click="closeToolbox" title="Schliessen">x</button></header>
                     <div class="o_hh_toolbox_body">
                         <div class="o_hh_toolbox_tabs" role="tablist">
                             <button type="button" t-att-class="state.activeToolboxTab === 'utilities' ? 'active' : ''" t-on-click="() => this.selectToolboxTab('utilities')">Dienstprogramme</button>
