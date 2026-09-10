@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_project_project_form_hh_odoo" model="ir.ui.view">
+        <field name="name">project.project.form.hh.odoo</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <div class="oe_button_box" name="button_box" position="inside">
+                    <button name="action_view_hh_events" type="object" class="oe_stat_button" icon="fa-calendar">
+                        <field name="hh_event_count" widget="statinfo" string="Termine"/>
+                    </button>
+                </div>
+                <group string="H&H Projektinformationen">
+                    <field name="hh_reference"/>
+                    <field name="hh_contact_id"/>
+                    <field name="hh_status"/>
+                    <field name="hh_target_date"/>
+                </group>
+                <notebook position="inside">
+                    <page string="Termine">
+                        <field name="hh_event_ids" context="{'default_project_id': id}">
+                            <list editable="bottom">
+                                <field name="date_start"/>
+                                <field name="name"/>
+                                <field name="event_type"/>
+                                <field name="responsible_id"/>
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_hh_projects" model="ir.actions.act_window">
+        <field name="name">Projekte</field>
+        <field name="res_model">project.project</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="context">{'default_hh_status': 'draft'}</field>
+    </record>
+
+    <menuitem id="menu_hh_odoo_root" name="HHOdoo" sequence="10"/>
+    <menuitem id="menu_hh_projects" name="Projektmanager" parent="menu_hh_odoo_root" action="action_hh_projects" sequence="10"/>
+    <menuitem id="menu_hh_project_events" name="Projekttermine" parent="menu_hh_odoo_root" action="action_hh_project_events" sequence="20"/>
+    <menuitem id="menu_hh_configuration" name="Konfiguration" parent="menu_hh_odoo_root" action="base.action_res_config_settings" groups="base.group_system" sequence="90"/>
+</odoo>

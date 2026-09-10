@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hh_project_event_list" model="ir.ui.view">
+        <field name="name">hh.project.event.list</field>
+        <field name="model">hh.project.event</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="date_start"/>
+                <field name="name"/>
+                <field name="project_id"/>
+                <field name="event_type"/>
+                <field name="responsible_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hh_project_event_form" model="ir.ui.view">
+        <field name="name">hh.project.event.form</field>
+        <field name="model">hh.project.event</field>
+        <field name="arch" type="xml">
+            <form string="Projekttermin">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="project_id"/>
+                        <field name="event_type"/>
+                        <field name="responsible_id"/>
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
+                    <group>
+                        <field name="description" widget="html"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hh_project_events" model="ir.actions.act_window">
+        <field name="name">Projekttermine</field>
+        <field name="res_model">hh.project.event</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+    </record>
+</odoo>
