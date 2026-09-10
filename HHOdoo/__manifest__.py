@@ -13,6 +13,13 @@
         "views/res_config_settings_views.xml",
         "views/hh_odoo_menus.xml",
     ],
+    "assets": {
+        "web.assets_backend": [
+            "HHOdoo/static/src/js/hh_dashboard.js",
+            "HHOdoo/static/src/xml/hh_dashboard.xml",
+            "HHOdoo/static/src/css/hh_dashboard.css",
+        ],
+    },
     "application": True,
     "installable": True,
 }

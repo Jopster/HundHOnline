@@ -7,7 +7,12 @@
         <field name="context">{'default_hh_status': 'draft'}</field>
     </record>
 
-    <menuitem id="menu_hh_odoo_root" name="HHOdoo" sequence="10"/>
+    <record id="action_hh_dashboard" model="ir.actions.client">
+        <field name="name">HHOdoo</field>
+        <field name="tag">hh_odoo.dashboard</field>
+    </record>
+
+    <menuitem id="menu_hh_odoo_root" name="HHOdoo" action="action_hh_dashboard" sequence="10"/>
     <menuitem id="menu_hh_projects" name="Projektmanager" parent="menu_hh_odoo_root" action="action_hh_projects" sequence="10"/>
     <menuitem id="menu_hh_project_events" name="Projekttermine" parent="menu_hh_odoo_root" action="action_hh_project_events" sequence="20"/>
     <menuitem id="menu_hh_configuration" name="Konfiguration" parent="menu_hh_odoo_root" action="base_setup.action_general_configuration" groups="base.group_system" sequence="90"/>

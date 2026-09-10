@@ -1,0 +1,306 @@
+.o_hh_dashboard {
+    --hh-blue: #1c4d70;
+    --hh-border: #8aa1b4;
+    --hh-panel: #eef2f5;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 620px;
+    overflow: hidden;
+    color: #173c58;
+    background: #d7dde2;
+    font-family: Tahoma, Verdana, sans-serif;
+    font-size: 12px;
+}
+
+.o_hh_dashboard button {
+    font: inherit;
+}
+
+.o_hh_menu_bar {
+    display: flex;
+    gap: 24px;
+    height: 26px;
+    align-items: center;
+    padding: 0 14px;
+    border-bottom: 1px solid #dc6432;
+    background: #f7f7f7;
+}
+
+.o_hh_menu_bar button,
+.o_hh_module_tabs button {
+    border: 0;
+    background: transparent;
+    color: var(--hh-blue);
+}
+
+.o_hh_menu_bar button {
+    font-weight: 700;
+}
+
+.o_hh_ribbon {
+    display: flex;
+    height: 55px;
+    align-items: end;
+    border-bottom: 1px solid #90a0ac;
+    background: linear-gradient(#edf1f5, #cbd2dc);
+}
+
+.o_hh_logo {
+    display: grid;
+    width: 54px;
+    height: 54px;
+    place-items: center;
+    border-right: 1px solid #b5c0ca;
+    color: #345f7c;
+    font-size: 28px;
+    font-style: italic;
+    font-weight: 800;
+}
+
+.o_hh_logo::before,
+.o_hh_small_logo {
+    display: grid;
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    place-items: center;
+    border: 2px solid #ec6c30;
+    border-radius: 50%;
+    content: "";
+}
+
+.o_hh_module_tabs {
+    display: flex;
+    height: 100%;
+    align-items: end;
+    overflow-x: auto;
+}
+
+.o_hh_module_tabs button {
+    height: 33px;
+    padding: 0 14px;
+    white-space: nowrap;
+}
+
+.o_hh_module_tabs button.active {
+    height: 34px;
+    border: 1px solid #afb9c6;
+    border-bottom: 0;
+    border-radius: 4px 4px 0 0;
+    background: #f4f5f7;
+}
+
+.o_hh_command_bar {
+    display: flex;
+    height: 104px;
+    padding: 3px;
+    border-bottom: 1px solid #8e9ba7;
+    background: linear-gradient(#e6ebef, #c8d0d9);
+}
+
+.o_hh_command_group {
+    position: relative;
+    display: flex;
+    height: 98px;
+    padding: 6px 7px 21px;
+    border: 1px solid #a3afbb;
+    border-radius: 0 0 3px 3px;
+    background: linear-gradient(#eef3f7, #d4dce5);
+}
+
+.o_hh_command_group > span:last-child {
+    position: absolute;
+    right: 0;
+    bottom: 3px;
+    left: 0;
+    text-align: center;
+}
+
+.o_hh_command {
+    display: flex;
+    width: 94px;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    border: 0;
+    border-right: 1px solid #b5c0cb;
+    color: var(--hh-blue);
+    background: transparent;
+}
+
+.o_hh_command:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.o_hh_command > span {
+    font-size: 29px;
+    line-height: 36px;
+}
+
+.o_hh_project_icon {
+    color: #df6e36;
+}
+
+.o_hh_workspace {
+    position: relative;
+    min-height: 400px;
+    flex: 1;
+    overflow: hidden;
+    background: #798286;
+}
+
+.o_hh_wallpaper {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: radial-gradient(circle at 47% 15%, rgba(250, 255, 255, 0.82), transparent 23%), linear-gradient(122deg, #4c5559, #929b9c 43%, #374145 45%, #b9c4c3);
+}
+
+.o_hh_grid {
+    position: absolute;
+    inset: 38% 0 0;
+    opacity: 0.4;
+    background-image: linear-gradient(rgba(245, 250, 250, 0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(245, 250, 250, 0.6) 1px, transparent 1px);
+    background-size: 38px 38px;
+}
+
+.o_hh_chart {
+    position: absolute;
+    top: 36px;
+    width: 31%;
+    height: 32%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+    border-left: 1px solid rgba(255, 255, 255, 0.6);
+    background-image: linear-gradient(rgba(255, 255, 255, 0.17) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.17) 1px, transparent 1px);
+    background-size: 27px 27px;
+}
+
+.o_hh_chart_one { right: 15%; }
+.o_hh_chart_two { right: -16%; }
+
+.o_hh_network {
+    position: absolute;
+    right: 13%;
+    bottom: 25%;
+    width: 49%;
+    height: 32%;
+    border-bottom: 2px solid rgba(239, 248, 248, 0.7);
+    transform: skewY(-9deg);
+}
+
+.o_hh_network i {
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    border: 3px solid rgba(246, 250, 250, 0.78);
+    border-radius: 50%;
+}
+
+.o_hh_network i:nth-child(1) { top: 35%; left: 3%; }
+.o_hh_network i:nth-child(2) { top: 12%; left: 28%; }
+.o_hh_network i:nth-child(3) { top: 45%; left: 47%; }
+.o_hh_network i:nth-child(4) { top: 18%; left: 67%; }
+.o_hh_network i:nth-child(5) { top: 52%; right: 3%; }
+
+.o_hh_wall_brand {
+    position: absolute;
+    bottom: 13%;
+    left: 34%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: rgba(24, 73, 103, 0.86);
+}
+
+.o_hh_wall_brand strong {
+    font-size: 62px;
+    font-style: italic;
+}
+
+.o_hh_wall_brand small {
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.o_hh_toolbox {
+    position: relative;
+    z-index: 1;
+    width: min(862px, calc(100% - 28px));
+    height: 488px;
+    margin: 7px;
+    border: 1px solid #6d9bbf;
+    background: #edf1f5;
+    box-shadow: 1px 3px 7px rgba(0, 0, 0, 0.28);
+}
+
+.o_hh_toolbox_title {
+    display: flex;
+    height: 29px;
+    align-items: center;
+    gap: 7px;
+    padding-left: 8px;
+    color: #0f3d61;
+    background: linear-gradient(#d9edff, #a7c8e7);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.o_hh_small_logo {
+    position: static;
+    width: 16px;
+    height: 16px;
+    border-width: 1px;
+    font-size: 10px;
+}
+
+.o_hh_toolbox_title button {
+    width: 34px;
+    height: 100%;
+    margin-left: auto;
+    border: 0;
+    color: #fff;
+    background: #c95647;
+    font-size: 18px;
+}
+
+.o_hh_toolbox_body { padding: 12px 11px 9px; }
+.o_hh_toolbox_tabs { display: flex; height: 23px; align-items: end; border-bottom: 1px solid #d0d0d0; }
+.o_hh_toolbox_tabs button { height: 23px; padding: 0 10px; border: 0; background: transparent; }
+.o_hh_toolbox_tabs button.active { border: 1px solid #c8c8c8; border-bottom-color: #f5f5f5; border-radius: 3px 3px 0 0; background: #f5f5f5; }
+
+.o_hh_toolbox_panel { height: 404px; padding: 8px; border: 1px solid #dedede; background: #f4f4f4; }
+.o_hh_caption { height: 21px; color: #173a58; font-weight: 700; }
+.o_hh_caption::before { display: inline-block; width: 8px; height: 8px; margin: 0 6px 0 2px; background: #f17221; content: ""; }
+.o_hh_utilities { display: flex; height: 362px; padding: 0 7px; background: #e7e7e7; }
+.o_hh_utilities aside { display: flex; width: 150px; flex-direction: column; align-items: center; padding-top: 18px; background: #d1d1d1; }
+.o_hh_gears { height: 110px; color: #386580; font-size: 52px; line-height: 1; }
+.o_hh_utility_actions { display: flex; flex-direction: column; gap: 7px; padding: 46px 0 0 58px; }
+.o_hh_utility_actions button, .o_hh_settings button { height: 27px; border: 1px solid #35617d; color: #174362; background: #fafafa; }
+.o_hh_utility_actions button { width: 175px; text-align: left; }
+.o_hh_utility_actions button:hover, .o_hh_settings button:hover { background: #e1edf4; }
+.o_hh_settings fieldset { display: flex; gap: 8px; margin: 0 0 10px; padding: 8px; border: 1px solid #d3d3d3; }
+.o_hh_settings legend { color: #173a58; font-weight: 700; }
+.o_hh_settings button { min-width: 140px; }
+
+.o_hh_status_bar {
+    display: flex;
+    height: 24px;
+    align-items: center;
+    border-top: 1px solid #fff;
+    color: var(--hh-blue);
+    background: #eff1f2;
+}
+
+.o_hh_status_bar span { height: 100%; padding: 3px 9px; border-right: 1px solid #b7bfc6; }
+.o_hh_status_bar span:last-child { flex: 1; }
+.o_hh_status_led { color: #269b2c; }
+
+@media (max-width: 900px) {
+    .o_hh_dashboard { min-height: 550px; }
+    .o_hh_menu_bar { gap: 12px; }
+    .o_hh_toolbox { width: calc(100% - 14px); }
+    .o_hh_wall_brand { left: 45%; }
+    .o_hh_chart_two { display: none; }
+}

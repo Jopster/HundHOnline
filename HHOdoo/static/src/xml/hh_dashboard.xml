@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="HHOdoo.Dashboard">
+        <main class="o_hh_dashboard">
+            <section class="o_hh_menu_bar">
+                <button type="button" t-on-click="() => this.selectTool('Hotkeys')">Hotkeys</button>
+                <button type="button" t-on-click="openEvents">Terminmanager</button>
+                <button type="button" t-on-click="() => this.selectTool('Fenster')">Fenster</button>
+                <button type="button" t-on-click="openSettings">System</button>
+                <button type="button" t-on-click="() => this.selectTool('Hilfe')">Hilfe</button>
+            </section>
+
+            <section class="o_hh_ribbon">
+                <div class="o_hh_logo">H</div>
+                <div class="o_hh_module_tabs" role="tablist">
+                    <t t-foreach="['Wareneingang', 'Stammdaten', 'Projektmanager', 'Zeiten', 'Finanzen', 'Auswertungen', 'Benutzer', 'Kontakte', 'Conspectus']" t-as="module" t-key="module">
+                        <button type="button" role="tab" t-att-class="state.activeModule === module ? 'active' : ''" t-att-aria-selected="state.activeModule === module" t-on-click="() => this.selectModule(module)"><t t-esc="module"/></button>
+                    </t>
+                </div>
+            </section>
+
+            <section class="o_hh_command_bar">
+                <div t-if="state.activeModule === 'Projektmanager'" class="o_hh_command_group">
+                    <button type="button" class="o_hh_command" t-on-click="openProjects"><span class="o_hh_project_icon">&#9638;</span>Projekte</button>
+                    <span>Projektmanager</span>
+                </div>
+                <div t-elif="state.activeModule === 'Stammdaten'" class="o_hh_command_group">
+                    <button type="button" class="o_hh_command" t-on-click="openProjects"><span>&#9671;</span>Projektvorhaben</button>
+                    <button type="button" class="o_hh_command" t-on-click="openEvents"><span>&#9719;</span>Projekt-Ereignisse</button>
+                    <span>Stammdaten</span>
+                </div>
+                <div t-else="" class="o_hh_command_group">
+                    <button type="button" class="o_hh_command" t-on-click="() => this.selectTool(state.activeModule)"><span>&#9638;</span><t t-esc="state.activeModule"/></button>
+                    <span><t t-esc="state.activeModule"/></span>
+                </div>
+            </section>
+
+            <section class="o_hh_workspace">
+                <div class="o_hh_wallpaper" aria-hidden="true">
+                    <div class="o_hh_grid"/>
+                    <div class="o_hh_chart o_hh_chart_one"/>
+                    <div class="o_hh_chart o_hh_chart_two"/>
+                    <div class="o_hh_network"><i/><i/><i/><i/><i/></div>
+                    <div class="o_hh_wall_brand"><strong>H&amp;H</strong><small>SOFTWARE<br/>PROFESSIONAL</small></div>
+                </div>
+
+                <section t-if="state.toolboxVisible" class="o_hh_toolbox">
+                    <header class="o_hh_toolbox_title"><span class="o_hh_small_logo">H</span><span>Toolbox</span><button type="button" t-on-click="closeToolbox" title="Schliessen">x</button></header>
+                    <div class="o_hh_toolbox_body">
+                        <div class="o_hh_toolbox_tabs" role="tablist">
+                            <button type="button" t-att-class="state.activeToolboxTab === 'utilities' ? 'active' : ''" t-on-click="() => this.selectToolboxTab('utilities')">Dienstprogramme</button>
+                            <button type="button" t-att-class="state.activeToolboxTab === 'settings' ? 'active' : ''" t-on-click="() => this.selectToolboxTab('settings')">Einstellungen</button>
+                        </div>
+                        <div t-if="state.activeToolboxTab === 'utilities'" class="o_hh_toolbox_panel">
+                            <div class="o_hh_caption">H&amp;H Dienstprogramme</div>
+                            <div class="o_hh_utilities">
+                                <aside><div class="o_hh_gears">&#9881; &#9881;</div><strong>HHOdoo-Version:</strong><span>18.0.1.0.0</span></aside>
+                                <div class="o_hh_utility_actions">
+                                    <button type="button" t-on-click="() => this.selectTool('Lizenz / Freischaltung')">Lizenz / Freischaltung</button>
+                                    <button type="button" t-on-click="() => this.selectTool('CSV - Schnittstelle')">CSV - Schnittstelle</button>
+                                    <button type="button" t-on-click="() => this.selectTool('SQL-Wizard')">SQL-Wizard</button>
+                                    <button type="button" t-on-click="() => this.selectTool('Wartung Datenbank')">Wartung Datenbank</button>
+                                    <button type="button" t-on-click="() => this.selectTool('Wartung Pfade')">Wartung Pfade</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div t-else="" class="o_hh_toolbox_panel o_hh_settings">
+                            <fieldset><legend>Globale Eigenschaften</legend><button type="button" t-on-click="openSettings">Systemeinstellungen</button><button type="button" t-on-click="openSettings">Initialisierungen</button></fieldset>
+                            <fieldset><legend>Listen</legend><button type="button" t-on-click="openEvents">Projekt Termintexte</button><button type="button" t-on-click="openEvents">Projekt-Ereignisse</button><button type="button" t-on-click="openProjects">Projektvorhaben</button></fieldset>
+                            <fieldset><legend>Einzelne Werte</legend><button type="button" t-on-click="openSettings">Nummernkreise</button><button type="button" t-on-click="openSettings">Email Signatur</button></fieldset>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <footer class="o_hh_status_bar"><span>Anmeldung: <t t-esc="env.services.user.name"/></span><span>HHOdoo</span><span class="o_hh_status_led">&#9654;</span><span><t t-esc="state.statusMessage"/></span></footer>
+        </main>
+    </t>
+</templates>
