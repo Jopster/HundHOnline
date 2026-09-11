@@ -65,4 +65,18 @@ button { font: inherit; cursor: pointer; }
 .utility-actions { display: flex; flex-direction: column; gap: 6px; padding: 45px 0 0 58px; }.utility-actions button { width: 155px; height: 25px; text-align: left; color: #174362; background: #f9f9f9; border: 1px solid #35617d; }.utility-actions button:hover { background: #e2edf4; }.utility-actions span { display: inline-block; width: 25px; padding-left: 4px; font-size: 15px; color: #1d587d; }
 .settings-panel { height: 400px; padding: 7px; background: #ececec; }.settings-panel fieldset { min-width: 0; margin: 0 0 7px; padding: 6px 7px 9px; border: 1px solid #d6d6d6; }.settings-panel legend { padding: 0 3px; color: #173a58; font-weight: 700; }.settings-grid { display: grid; gap: 6px 7px; }.settings-grid button { height: 26px; color: #174362; background: #fafafa; border: 1px solid #35617d; font-size: 11px; }.settings-grid button:hover { background: #e2edf4; }.global-settings { grid-template-columns: 159px 159px 159px; }.global-settings button:last-child { grid-column: 4; }.list-settings { grid-template-columns: repeat(5, 121px); }.individual-settings { grid-template-columns: 121px 249px 121px; }
 .status-bar { height: 22px; display: flex; align-items: center; background: #eff1f2; border-top: 1px solid #fff; color: #1d4665; }.status-bar span { height: 100%; display: flex; align-items: center; padding: 0 8px; border-right: 1px solid #b7bfc6; }.status-bar .status-led { padding: 0 4px; color: #269b2c; }.status-bar #status-message { flex: 1; }
+.login-overlay { position: fixed; z-index: 100; inset: 0; display: grid; place-items: center; padding: 20px; background: rgba(26, 48, 63, .2); }
+.login-dialog { width: min(360px, 100%); margin: 0; border: 1px solid #527593; border-radius: 3px; background: #edf1f5; box-shadow: 0 12px 30px rgba(0, 0, 0, .38); color: #123d5b; }
+.login-dialog-titlebar { height: 30px; display: flex; align-items: center; gap: 7px; padding: 0 8px; color: #0f3d61; background: linear-gradient(#d9edff, #a7c8e7); font-size: 13px; font-weight: 700; }
+.login-dialog-content { display: grid; grid-template-columns: 100px 1fr; align-items: center; gap: 8px 10px; padding: 18px; }
+.login-dialog-content > p:first-child { grid-column: 1 / -1; margin: 0 0 5px; color: #27485e; }
+.login-dialog-content label { text-align: right; }
+.login-dialog-content input { width: 100%; height: 25px; border: 1px solid #7d8c97; background: #fff; color: #092e49; font: inherit; }
+.login-dialog-content input:focus { outline: 2px solid #e76e32; outline-offset: 1px; }
+.login-error { grid-column: 1 / -1; margin: 2px 0 0; color: #a23222; }
+.login-dialog-actions { display: flex; justify-content: flex-end; padding: 8px 12px; border-top: 1px solid #c5cdd3; background: #e1e6eb; }
+.login-dialog-actions button { min-width: 92px; height: 27px; border: 1px solid #35617d; border-radius: 2px; color: #fff; background: linear-gradient(#5d8cac, #32647f); font-weight: 700; }
+.login-dialog-actions button:disabled { cursor: wait; opacity: .7; }
+body.authentication-required .application-shell { filter: blur(5px); pointer-events: none; user-select: none; }
+body:not(.authentication-required) .login-overlay { display: none; }
 @media (max-width: 1000px) { .toolbox-window { width: min(862px, calc(100vw - 58px)); }.module-tabs button { min-width: auto; padding: 0 8px; }.wall-brand { left: 45%; }.chart-two { display: none; } }

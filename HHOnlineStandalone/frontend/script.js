@@ -6,6 +6,14 @@ const articleGridBody = document.querySelector('#article-grid-body');
 const articleSearch = document.querySelector('#article-search');
 const groupName = document.querySelector('#group-name');
 const articleName = document.querySelector('#article-name');
+const applicationShell = document.querySelector('.application-shell');
+const authenticationStatus = document.querySelector('#authentication-status');
+const loginOverlay = document.querySelector('#login-overlay');
+const loginForm = document.querySelector('#login-form');
+const loginUsername = document.querySelector('#login-username');
+const loginPassword = document.querySelector('#login-password');
+const loginError = document.querySelector('#login-error');
+const loginSubmit = document.querySelector('#login-submit');
 
 let articles = [
   ['27', 'Abfallsammler', 'AA 130', 'Abfallsammler für Schränke mit Frontauszug', 'Frank-Michael Stoltenberg', '1', '528,00', '0,00', '19', 'Stück'],
@@ -19,6 +27,79 @@ let articles = [
 let activeGroup = 'Alle';
 let selectedArticle = articles[0];
 let highestWindowLayer = 8;
+let isReplayingAuthenticatedAction = false;
+
+function showLogin(message = '') {
+  document.body.classList.add('authentication-required');
+  applicationShell.inert = true;
+  loginOverlay.hidden = false;
+  loginError.textContent = message;
+  loginError.hidden = !message;
+  loginPassword.value = '';
+  window.setTimeout(() => (loginUsername.value ? loginPassword : loginUsername).focus(), 0);
+}
+
+function setAuthenticatedUser(username) {
+  document.body.classList.remove('authentication-required');
+  applicationShell.inert = false;
+  loginOverlay.hidden = true;
+  authenticationStatus.textContent = `Angemeldet: ${username}`;
+}
+
+async function checkSession() {
+  try {
+    const response = await fetch('/api/auth/session', { cache: 'no-store', credentials: 'same-origin' });
+    if (!response.ok) throw new Error(`API returned ${response.status}`);
+    const { username } = await response.json();
+    setAuthenticatedUser(username);
+    return true;
+  } catch (error) {
+    showLogin();
+    return false;
+  }
+}
+
+async function authenticatedFetch(resource, options) {
+  const response = await fetch(resource, { credentials: 'same-origin', ...options });
+  if (response.status === 401) showLogin('Ihre Sitzung ist nicht mehr gültig. Bitte melden Sie sich erneut an.');
+  return response;
+}
+
+loginForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  loginError.hidden = true;
+  loginSubmit.disabled = true;
+  try {
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: loginUsername.value, password: loginPassword.value }),
+    });
+    if (!response.ok) throw new Error('invalid credentials');
+    const { username } = await response.json();
+    setAuthenticatedUser(username);
+    await loadArticles();
+  } catch (error) {
+    loginError.textContent = 'Benutzername oder Passwort ist ungültig.';
+    loginError.hidden = false;
+    loginPassword.focus();
+  } finally {
+    loginSubmit.disabled = false;
+  }
+});
+
+document.addEventListener('click', async (event) => {
+  if (isReplayingAuthenticatedAction || event.target.closest('#login-overlay')) return;
+  const actionTarget = event.target.closest('button, input, select, textarea, .article-grid tbody tr');
+  if (!actionTarget) return;
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  if (!await checkSession()) return;
+  isReplayingAuthenticatedAction = true;
+  actionTarget.click();
+  isReplayingAuthenticatedAction = false;
+}, true);
 
 function bringWindowToFront(windowElement) {
   highestWindowLayer += 1;
@@ -57,7 +138,7 @@ function toArticleRow(article) {
 
 async function loadArticles() {
   try {
-    const response = await fetch('/api/articles');
+    const response = await authenticatedFetch('/api/articles');
     if (!response.ok) throw new Error(`API returned ${response.status}`);
     articles = (await response.json()).map(toArticleRow);
     selectedArticle = articles[0] || null;
@@ -201,7 +282,9 @@ document.querySelector('.save-article').addEventListener('click', () => {
 });
 
 renderArticles();
-loadArticles();
+checkSession().then((isAuthenticated) => {
+  if (isAuthenticated) loadArticles();
+});
 
 function makeWindowInteractive(windowElement, titlebar) {
   const resizeHandle = document.createElement('span');

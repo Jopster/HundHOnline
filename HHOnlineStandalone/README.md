@@ -1,30 +1,36 @@
 # HHOnline Standalone
 
-Eigenstaendige HHOnline-Webanwendung mit einem Python-FastAPI-Server, MariaDB und dem vorhandenen HTML-/JavaScript-Frontend. Dieses Projekt hat keine Abhaengigkeit von Odoo.
+Eigenstaendige HHOnline-Webanwendung mit einem Python-FastAPI-Server, lokaler MariaDB und dem vorhandenen HTML-/JavaScript-Frontend. Dieses Projekt hat keine Abhaengigkeit von Odoo oder Docker.
 
-## Start mit Docker
+## Lokaler Start
 
-1. Docker Desktop starten.
-2. Im Ordner `HHOnlineStandalone` ausfuehren:
+Die lokale MariaDB verwendet folgende Einrichtung:
 
-```powershell
-docker compose up --build
+- Datenverzeichnis: `/opt/hhonline/mysql/data`
+- Datenbank: `hhonline`
+- Benutzer: `hhonline_user`
+- Passwort: `hh2026_Mysql`
+
+MariaDB muss aktiv sein:
+
+```bash
+systemctl start mariadb
 ```
 
-3. `http://localhost:8000` im Browser oeffnen.
+Im Ordner `HHOnlineStandalone` den API-Server starten:
 
-Der API-Service erstellt die Tabelle `articles` beim ersten Start und importiert Beispieldaten. Die API-Dokumentation ist unter `http://localhost:8000/docs` verfuegbar.
+```bash
+./start-api.sh
+```
 
-## Lokaler Python-Start
+Das Skript legt bei Bedarf `.venv` an, installiert die Abhaengigkeiten und startet den Dienst auf `http://0.0.0.0:8000`. Die Anwendung ist lokal unter `http://localhost:8000` erreichbar. Die API-Dokumentation ist unter `http://localhost:8000/docs` verfuegbar.
 
-Eine MariaDB-Datenbank muss erreichbar sein. Die Verbindungszeichenfolge wird ueber `DATABASE_URL` gesetzt; siehe `.env.example`.
+Beim ersten Seitenaufruf erscheint ein Login-Dialog. Die lokalen Zugangsdaten sind Benutzername `HHOnline` und Passwort `HHOnline`. Der Browser erhaelt nach erfolgreicher Anmeldung eine signierte Session; die API und jede bedienbare Aktion pruefen ihre Gueltigkeit. Fuer eine oeffentliche Bereitstellung muessen `AUTH_PASSWORD` und `SESSION_SECRET` als Umgebungsvariablen gesetzt werden.
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-$env:DATABASE_URL = "mysql+pymysql://hhonline:hhonline@localhost:3306/hhonline?charset=utf8mb4"
-uvicorn app:app --reload
+Fuer einen anderen Port kann `PORT` gesetzt werden:
+
+```bash
+PORT=8001 ./start-api.sh
 ```
 
 ## API

@@ -2,18 +2,24 @@ from collections.abc import Generator
 from decimal import Decimal
 import os
 from pathlib import Path
+from secrets import compare_digest
 
-from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi import Depends, FastAPI, HTTPException, Request, status
+from fastapi.middleware import Middleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field
 from sqlalchemy import Boolean, Integer, Numeric, String, create_engine, select
 from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column, sessionmaker
+from starlette.middleware.sessions import SessionMiddleware
 
 BASE_DIR = Path(__file__).resolve().parent
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
-    "mysql+pymysql://hhonline:hhonline@localhost:3306/hhonline?charset=utf8mb4",
+    "mysql+pymysql://hhonline_user:hh2026_Mysql@localhost:3306/hhonline?charset=utf8mb4",
 )
+AUTH_USERNAME = os.getenv("AUTH_USERNAME", "HHOnline")
+AUTH_PASSWORD = os.getenv("AUTH_PASSWORD", "HHOnline")
+SESSION_SECRET = os.getenv("SESSION_SECRET", "change-this-before-public-deployment")
 
 engine = create_engine(DATABASE_URL, pool_pre_ping=True)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
@@ -56,9 +62,21 @@ class ArticleResponse(ArticlePayload):
     id: int
 
 
+class LoginPayload(BaseModel):
+    username: str = Field(min_length=1, max_length=100)
+    password: str = Field(min_length=1, max_length=255)
+
+
 def get_session() -> Generator[Session, None, None]:
     with SessionLocal() as session:
         yield session
+
+
+def require_authenticated_user(request: Request) -> str:
+    username = request.session.get("username")
+    if username != AUTH_USERNAME:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Anmeldung erforderlich.")
+    return username
 
 
 def seed_articles(session: Session) -> None:
@@ -75,7 +93,11 @@ def seed_articles(session: Session) -> None:
     session.commit()
 
 
-app = FastAPI(title="HHOnline API", version="0.1.0")
+app = FastAPI(
+    title="HHOnline API",
+    version="0.1.0",
+    middleware=[Middleware(SessionMiddleware, secret_key=SESSION_SECRET, same_site="lax", https_only=False)],
+)
 
 
 @app.on_event("startup")
@@ -90,11 +112,34 @@ def health_check() -> dict[str, str]:
     return {"status": "ok"}
 
 
+@app.post("/api/auth/login")
+def login(payload: LoginPayload, request: Request) -> dict[str, str]:
+    if not (
+        compare_digest(payload.username, AUTH_USERNAME)
+        and compare_digest(payload.password, AUTH_PASSWORD)
+    ):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Benutzername oder Passwort ist ungültig.")
+    request.session.clear()
+    request.session["username"] = AUTH_USERNAME
+    return {"username": AUTH_USERNAME}
+
+
+@app.get("/api/auth/session")
+def get_authenticated_user(username: str = Depends(require_authenticated_user)) -> dict[str, str]:
+    return {"username": username}
+
+
+@app.post("/api/auth/logout", status_code=status.HTTP_204_NO_CONTENT)
+def logout(request: Request) -> None:
+    request.session.clear()
+
+
 @app.get("/api/articles", response_model=list[ArticleResponse])
 def list_articles(
     search: str | None = None,
     group_name: str | None = None,
     session: Session = Depends(get_session),
+    _: str = Depends(require_authenticated_user),
 ) -> list[Article]:
     statement = select(Article).order_by(Article.article_number)
     if group_name and group_name != "Alle":
@@ -108,7 +153,11 @@ def list_articles(
 
 
 @app.post("/api/articles", response_model=ArticleResponse, status_code=status.HTTP_201_CREATED)
-def create_article(payload: ArticlePayload, session: Session = Depends(get_session)) -> Article:
+def create_article(
+    payload: ArticlePayload,
+    session: Session = Depends(get_session),
+    _: str = Depends(require_authenticated_user),
+) -> Article:
     if session.scalar(select(Article).where(Article.article_number == payload.article_number)):
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Artikelnummer existiert bereits.")
     article = Article(**payload.model_dump())
@@ -119,7 +168,12 @@ def create_article(payload: ArticlePayload, session: Session = Depends(get_sessi
 
 
 @app.put("/api/articles/{article_id}", response_model=ArticleResponse)
-def update_article(article_id: int, payload: ArticlePayload, session: Session = Depends(get_session)) -> Article:
+def update_article(
+    article_id: int,
+    payload: ArticlePayload,
+    session: Session = Depends(get_session),
+    _: str = Depends(require_authenticated_user),
+) -> Article:
     article = session.get(Article, article_id)
     if not article:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Artikel wurde nicht gefunden.")
@@ -134,7 +188,11 @@ def update_article(article_id: int, payload: ArticlePayload, session: Session = 
 
 
 @app.delete("/api/articles/{article_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_article(article_id: int, session: Session = Depends(get_session)) -> None:
+def delete_article(
+    article_id: int,
+    session: Session = Depends(get_session),
+    _: str = Depends(require_authenticated_user),
+) -> None:
     article = session.get(Article, article_id)
     if not article:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Artikel wurde nicht gefunden.")

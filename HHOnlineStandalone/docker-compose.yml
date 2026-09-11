@@ -7,7 +7,7 @@ services:
       MARIADB_PASSWORD: hhonline
       MARIADB_ROOT_PASSWORD: change-me-in-production
     volumes:
-      - maria_data:/var/lib/mysql
+      - maria_data:/opt/hhonline/mysql/data
     healthcheck:
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
       interval: 5s

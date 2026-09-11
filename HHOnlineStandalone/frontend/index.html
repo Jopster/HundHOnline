@@ -6,8 +6,8 @@
   <title>H6H Online</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-  <main class="application-shell" aria-label="H6H Online">
+<body class="authentication-required">
+  <main class="application-shell" aria-label="H6H Online" inert>
     <header class="title-bar">
       <div class="brand-mark">H</div>
       <span>H6H Online</span>
@@ -151,9 +151,23 @@
     </section>
 
     <footer class="status-bar">
-      <span>Anmeldung: Gröger, Michael um 21:01 Uhr</span><span>Mittwoch, der 09. September 2026</span><span>H&amp;H Software GmbH</span><span>hh</span><span class="status-led">▶</span><span id="status-message">Dieses Produkt ist lizenziert.</span>
+      <span id="authentication-status">Anmeldung erforderlich</span><span>Mittwoch, der 09. September 2026</span><span>H&amp;H Software GmbH</span><span>hh</span><span class="status-led">▶</span><span id="status-message">Dieses Produkt ist lizenziert.</span>
     </footer>
   </main>
+  <section class="login-overlay" id="login-overlay" aria-labelledby="login-title" aria-modal="true" role="dialog">
+    <form class="login-dialog" id="login-form">
+      <div class="login-dialog-titlebar"><span class="small-mark">H</span><span id="login-title">H&amp;H Online Anmeldung</span></div>
+      <div class="login-dialog-content">
+        <p>Bitte melden Sie sich an.</p>
+        <label for="login-username">Benutzername</label>
+        <input id="login-username" name="username" type="text" autocomplete="username" autocapitalize="none" required />
+        <label for="login-password">Passwort</label>
+        <input id="login-password" name="password" type="password" autocomplete="current-password" required />
+        <p class="login-error" id="login-error" role="alert" hidden></p>
+      </div>
+      <div class="login-dialog-actions"><button type="submit" id="login-submit">Anmelden</button></div>
+    </form>
+  </section>
   <script src="script.js"></script>
 </body>
 </html>
