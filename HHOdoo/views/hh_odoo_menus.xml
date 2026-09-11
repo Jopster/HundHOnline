@@ -18,4 +18,7 @@
     <menuitem id="menu_hh_windows" name="Fenster" parent="menu_hh_odoo_root" action="action_hh_dashboard" sequence="3"/>
     <menuitem id="menu_hh_system" name="System" parent="menu_hh_odoo_root" action="base_setup.action_general_configuration" groups="base.group_system" sequence="4"/>
     <menuitem id="menu_hh_help" name="Hilfe" parent="menu_hh_odoo_root" action="action_hh_dashboard" sequence="5"/>
+    <menuitem id="menu_hh_master_data" name="Stammdaten" parent="menu_hh_odoo_root" sequence="20"/>
+    <menuitem id="menu_hh_articles" name="Artikel/Texte" parent="menu_hh_master_data" action="action_hh_articles" sequence="10"/>
+    <menuitem id="menu_hh_product_categories" name="Warengruppen" parent="menu_hh_master_data" action="action_hh_product_categories" sequence="20"/>
 </odoo>

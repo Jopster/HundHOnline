@@ -1,2 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_hh_project_event_user,hh.project.event.user,model_hh_project_event,base.group_user,1,1,1,1
+access_hh_product_category_user,hh.product.category.user,model_hh_product_category,base.group_user,1,1,1,1
+access_hh_product_supplier_user,hh.product.supplier.user,model_hh_product_supplier,base.group_user,1,1,1,1
+access_hh_product_stock_user,hh.product.stock.user,model_hh_product_stock,base.group_user,1,1,1,1
+access_hh_product_time_user,hh.product.time.user,model_hh_product_time,base.group_user,1,1,1,1

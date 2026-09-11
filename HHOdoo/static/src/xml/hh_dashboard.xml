@@ -17,8 +17,8 @@
                     <span>Projektmanager</span>
                 </div>
                 <div t-elif="state.activeModule === 'Stammdaten'" class="o_hh_command_group">
-                    <button type="button" class="o_hh_command" t-on-click="openProjects"><span>&#9671;</span>Projektvorhaben</button>
-                    <button type="button" class="o_hh_command" t-on-click="openEvents"><span>&#9719;</span>Projekt-Ereignisse</button>
+                    <button type="button" class="o_hh_command" t-on-click="openArticles"><span>&#9638;</span>Artikel/Texte</button>
+                    <button type="button" class="o_hh_command" t-on-click="openSettings"><span>&#9742;</span>Kontaktmanager</button>
                     <span>Stammdaten</span>
                 </div>
                 <div t-else="" class="o_hh_command_group">

@@ -5,9 +5,11 @@
     "category": "Services/Project",
     "author": "H&H Software",
     "license": "LGPL-3",
-    "depends": ["project", "contacts", "base_setup"],
+    "depends": ["project", "product", "contacts", "base_setup"],
     "data": [
         "security/ir.model.access.csv",
+        "views/hh_product_category_views.xml",
+        "views/product_template_views.xml",
         "views/hh_project_event_views.xml",
         "views/project_project_views.xml",
         "views/res_config_settings_views.xml",

@@ -43,6 +43,10 @@ export class HHOdooDashboard extends Component {
         this.actionService.doAction("HHOdoo.action_hh_project_events");
     }
 
+    openArticles() {
+        this.actionService.doAction("HHOdoo.action_hh_articles");
+    }
+
     openSettings() {
         this.actionService.doAction("base_setup.action_general_configuration");
     }
