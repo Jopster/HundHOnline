@@ -18,18 +18,18 @@ class HhProductCategory(models.Model):
     parent_path = fields.Char(index=True)
     child_ids = fields.One2many("hh.product.category", "parent_id", string="Untergruppen")
     active = fields.Boolean(default=True)
-    product_tmpl_ids = fields.One2many("product.template", "hh_category_id", string="Artikel")
+    article_ids = fields.One2many("hh.article", "category_id", string="Artikel")
     product_count = fields.Integer(compute="_compute_product_count")
 
     def _compute_product_count(self):
         for category in self:
-            category.product_count = self.env["product.template"].search_count(
-                [("hh_category_id", "child_of", category.id)]
+            category.product_count = self.env["hh.article"].search_count(
+                [("category_id", "child_of", category.id)]
             )
 
     def action_view_products(self):
         self.ensure_one()
         action = self.env["ir.actions.actions"]._for_xml_id("HHOdoo.action_hh_articles")
-        action["domain"] = [("hh_category_id", "child_of", self.id)]
-        action["context"] = {"default_hh_category_id": self.id}
+        action["domain"] = [("category_id", "child_of", self.id)]
+        action["context"] = {"default_category_id": self.id}
         return action

@@ -1,47 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="view_product_template_hh_article_list" model="ir.ui.view">
-        <field name="name">product.template.hh.article.list</field>
-        <field name="model">product.template</field>
+        <field name="name">hh.article.list</field>
+        <field name="model">hh.article</field>
         <field name="arch" type="xml">
             <list string="Artikelliste" create="1" edit="1">
-                <field name="hh_article_number"/>
+                <field name="article_number"/>
                 <field name="name"/>
-                <field name="hh_category_id"/>
-                <field name="hh_is_article"/>
-                <field name="hh_stock_quantity"/>
-                <field name="list_price" string="VK1 (Netto)"/>
-                <field name="standard_price" string="EK (Netto)"/>
-                <field name="uom_id"/>
+                <field name="article_type"/>
+                <field name="category_id"/>
+                <field name="stock_quantity"/>
+                <field name="sale_price"/>
+                <field name="purchase_price"/>
+                <field name="unit_name"/>
                 <field name="active"/>
             </list>
         </field>
     </record>
 
     <record id="view_product_template_hh_article_search" model="ir.ui.view">
-        <field name="name">product.template.hh.article.search</field>
-        <field name="model">product.template</field>
+        <field name="name">hh.article.search</field>
+        <field name="model">hh.article</field>
         <field name="arch" type="xml">
             <search string="Artikel suchen">
-                <field name="hh_article_number"/>
-                <field name="name" filter_domain="['|', ('name', 'ilike', self), ('hh_article_number', 'ilike', self)]"/>
-                <field name="hh_category_id"/>
+                <field name="article_number"/>
+                <field name="name" filter_domain="['|', ('name', 'ilike', self), ('article_number', 'ilike', self)]"/>
+                <field name="category_id"/>
                 <filter name="active" string="Aktive Artikel" domain="[('active', '=', True)]"/>
-                <filter name="webshop" string="Im WebShop" domain="[('hh_webshop', '=', True)]"/>
-                <filter name="is_article" string="Ist Artikel" domain="[('hh_is_article', '=', True)]"/>
+                <filter name="favorites" string="Favoriten" domain="[('is_favorite', '=', True)]"/>
+                <filter name="webshop" string="Im WebShop" domain="[('webshop', '=', True)]"/>
+                <filter name="articles" string="Artikel" domain="[('article_type', '=', 'article')]"/>
+                <filter name="texts" string="Texte" domain="[('article_type', '=', 'text')]"/>
                 <group expand="0" string="Gruppieren nach">
-                    <filter name="group_category" string="Warengruppe" context="{'group_by': 'hh_category_id'}"/>
+                    <filter name="group_category" string="Warengruppe" context="{'group_by': 'category_id'}"/>
                 </group>
                 <searchpanel>
-                    <field name="hh_category_id" select="multi" hierarchy="1" enable_counters="1"/>
+                    <field name="category_id" select="multi" hierarchy="1" enable_counters="1"/>
                 </searchpanel>
             </search>
         </field>
     </record>
 
     <record id="view_product_template_hh_article_form" model="ir.ui.view">
-        <field name="name">product.template.hh.article.form</field>
-        <field name="model">product.template</field>
+        <field name="name">hh.article.form</field>
+        <field name="model">hh.article</field>
         <field name="arch" type="xml">
             <form string="Artikeldaten">
                 <sheet>
@@ -51,38 +53,41 @@
                     </div>
                     <group>
                         <group string="Definition">
-                            <field name="hh_article_number"/>
-                            <field name="hh_category_id"/>
-                            <field name="hh_is_article"/>
-                            <field name="hh_property"/>
-                            <field name="uom_id"/>
+                            <field name="article_number"/>
+                            <field name="article_type"/>
+                            <field name="category_id"/>
+                            <field name="property_type"/>
+                            <field name="unit_name"/>
                             <field name="active"/>
-                            <field name="hh_webshop"/>
-                            <field name="hh_report_visible"/>
+                            <field name="is_favorite"/>
+                            <field name="is_hidden"/>
+                            <field name="webshop"/>
+                            <field name="report_visible"/>
                         </group>
                         <group string="Preis">
-                            <field name="list_price" string="Verkaufspreis (Netto)"/>
-                            <field name="standard_price" string="Einkaufspreis (Netto)"/>
-                            <field name="taxes_id" widget="many2many_tags"/>
+                            <field name="sale_price"/>
+                            <field name="purchase_price"/>
+                            <field name="sale_tax_rate"/>
+                            <field name="purchase_tax_rate"/>
                         </group>
                     </group>
                     <notebook>
                         <page string="Artikel">
                             <group string="Beschreibung">
-                                <field name="description_sale" placeholder="Beschreibung"/>
-                                <field name="hh_long_description"/>
+                                <field name="description" placeholder="Beschreibung"/>
+                                <field name="long_description"/>
                             </group>
                             <group string="Abmessungen / Gewichte">
-                                <field name="hh_length"/>
-                                <field name="hh_width"/>
-                                <field name="hh_thickness"/>
-                                <field name="hh_volume"/>
-                                <field name="hh_weight"/>
-                                <field name="hh_waste_allowance"/>
+                                <field name="length"/>
+                                <field name="width"/>
+                                <field name="thickness"/>
+                                <field name="volume"/>
+                                <field name="weight"/>
+                                <field name="waste_allowance"/>
                             </group>
                         </page>
                         <page string="Lieferanten">
-                            <field name="hh_supplier_ids">
+                            <field name="supplier_ids">
                                 <list editable="bottom">
                                     <field name="is_primary"/>
                                     <field name="partner_id"/>
@@ -109,10 +114,10 @@
                         </page>
                         <page string="Lager">
                             <group>
-                                <field name="hh_stock_quantity" readonly="1"/>
-                                <field name="hh_min_stock_quantity" readonly="1"/>
+                                <field name="stock_quantity" readonly="1"/>
+                                <field name="min_stock_quantity" readonly="1"/>
                             </group>
-                            <field name="hh_stock_ids">
+                            <field name="stock_ids">
                                 <list editable="bottom">
                                     <field name="warehouse_name"/>
                                     <field name="location_name"/>
@@ -125,14 +130,14 @@
                             <group><field name="image_1920" widget="image" class="oe_avatar"/></group>
                         </page>
                         <page string="Dokumente">
-                            <group><field name="hh_document_notes" placeholder="Dokumenthinweise und Verweise"/></group>
+                            <group><field name="document_notes" placeholder="Dokumenthinweise und Verweise"/></group>
                         </page>
                         <page string="Zeiten">
                             <group>
-                                <field name="hh_total_minutes" readonly="1"/>
-                                <field name="hh_total_time_cost" readonly="1"/>
+                                <field name="total_minutes" readonly="1"/>
+                                <field name="total_time_cost" readonly="1"/>
                             </group>
-                            <field name="hh_time_ids">
+                            <field name="time_ids">
                                 <list editable="bottom">
                                     <field name="sequence" widget="handle"/>
                                     <field name="minutes"/>
@@ -143,9 +148,9 @@
                         </page>
                         <page string="Auswertung">
                             <group string="Auswertung für diesen Artikel">
-                                <field name="hh_project_count"/>
-                                <field name="hh_document_count"/>
-                                <field name="hh_invoice_count"/>
+                                <field name="project_count"/>
+                                <field name="document_count"/>
+                                <field name="invoice_count"/>
                             </group>
                         </page>
                     </notebook>
@@ -156,9 +161,9 @@
 
     <record id="action_hh_articles" model="ir.actions.act_window">
         <field name="name">Artikel/Texte</field>
-        <field name="res_model">product.template</field>
+        <field name="res_model">hh.article</field>
         <field name="view_mode">list,form</field>
-        <field name="domain">[('hh_is_article', '=', True)]</field>
+        <field name="domain">[]</field>
         <field name="context">{'search_default_active': 1}</field>
         <field name="search_view_id" ref="view_product_template_hh_article_search"/>
     </record>
