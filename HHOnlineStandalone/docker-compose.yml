@@ -1,0 +1,28 @@
+services:
+  database:
+    image: mariadb:11.4
+    environment:
+      MARIADB_DATABASE: hhonline
+      MARIADB_USER: hhonline
+      MARIADB_PASSWORD: hhonline
+      MARIADB_ROOT_PASSWORD: change-me-in-production
+    volumes:
+      - maria_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  api:
+    build: .
+    environment:
+      DATABASE_URL: mysql+pymysql://hhonline:hhonline@database:3306/hhonline?charset=utf8mb4
+    ports:
+      - "8000:8000"
+    depends_on:
+      database:
+        condition: service_healthy
+
+volumes:
+  maria_data:
